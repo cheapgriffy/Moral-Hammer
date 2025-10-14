@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[url(/assets/diagmonds.png)] bg-[#323437] font-[poppins] px-30 flex flex-col gap-10">
+    <!-- bg_color :         #323437 -->
+    <!-- drk-bg-color :     #2c2e31 -->
+    <!-- grey:              #5e5f62 -->
+    <!-- contrast_yellow :  bg-amber-300 -->
+    <!-- white :            #cfcec3  -->
+
+    <nav class="p-5 flex flex-row gap-5 items-center">
+        <h2 class="text-[#cfcec3] text-[28px] font-semibold">Moral Hammer</h1>
+        <img class="w-7 h-7" src="assets/icons/setting.png" alt="Setting icon">
+    </nav>
+
+    <header class="w-full h-150 flex flex-col">
+        <div id="title_div" class="w-full h-80  flex items-center">
+            <h3 id="question_text" class="text-4xl text-[#cfcec3] font-semibold w-full text-center">lorem</h3>
+        </div>
+        <div id="button_div" class="flex flex-row w-full h-auto justify-center gap-20">
+            <button id="question_button_1" class="bg-[#2c2e31] shadow-2xl text-[#cfcec3] text-2xl py-5 px-10 max-w-100 rounded-2xl text-center transition-all duration-500 hover:bg-amber-300 hover:text-[#323437] hover:shadow-amber-300/30">lorem</button>
+            <button id="question_button_2" class="bg-[#2c2e31] shadow-2xl text-[#cfcec3] text-2xl py-5 px-10 max-w-100 rounded-2xl text-center transition-all duration-500 hover:bg-amber-300 hover:text-[#323437] hover:shadow-amber-300/30">lorem</button>
+        </div>
+    </header>
+
+    <script type="module" src="scripts/question_page.js"></script>
+</body>
+</html>
