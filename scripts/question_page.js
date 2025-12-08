@@ -8,7 +8,9 @@ let doc_calls =
     button_div: document.getElementById("button_div")
 }
 
-let question_list = [
+let question_list = JSON.parse(localStorage.getItem("current_quiz"))
+
+let question_list_bcpk = [
     {
         title: "un example de question ",
         answers:
