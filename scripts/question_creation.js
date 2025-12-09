@@ -7,51 +7,7 @@ let doc_calls = {
 
 let question_list = JSON.parse(localStorage.getItem("current_quiz"))
 
-let question_list_bcpk = [
-    {
-        title: "un example de question ",
-        answers:
-        [
-            {
-                text:"❌ Non",
-                value: -1
-            },
-            {
-                text:"✔️ Oui",
-                value: 1
-            }
-            
-        ]
-    },
-    {
-        title: "t'avait remarquer que dans la question precedante il y avait un espace en trop ?",
-        answers:
-        [
-            {
-                text:"❌Nan pour le coup",
-                value: -10
-            },
-            {
-                text:"✔️Bah ouais j'ai des yeux gros shlag",
-                value: 11
-            }
-        ]
-    },
-    {
-        title: "un petit test vite fait pour voir si l'array arrive bien a lire",
-        answers:
-        [
-            {
-                text: "ouais ça marche !",
-                value: 10,
-            },
-            {
-                text: "nan ça pue la merde",
-                value: -19,
-            },
-        ]
-    }
-]
+
 
 function render_preview(list){
     let temp_html_element = ""
@@ -79,9 +35,9 @@ function render_preview(list){
         }
         
         doc_calls.preset_view_div.innerHTML += `<div id="question_element${index}" class="flex flex-col items-center">${temp_html_element}</div>`
-        creation_part_input()
         
     }
+    creation_part_input()
 }
 
 function creation_part_input(){
@@ -111,22 +67,16 @@ function creation_part_input(){
 
                     render_preview(question_list)
                     
-                    // apply inputs to local storage
-                    // localStorage.setItem("current_quiz", JSON.stringify(question_list))
-                    // console.log('localStorage, edited')
+                    
+                    localStorage.setItem("current_quiz", JSON.stringify(question_list))
                 }
             });
             input_element.addEventListener("click", (event) => {
-                if (input_element.id.includes("add_button_")){
-                    question_list[input_element.id.replace(/\D/g, "")].answers.push(`
-                            {
-                                text:"Reponse 1",
-                                value: 1,
-                            },
-                    `)
+                if (input_element.id.includes("add_button_")){ 
+                    question_list[input_element.id.replace(/\D/g, "")].answers.push({text:"Reponse 1", value: 1,})
 
-                    sleep(200)
                     render_preview(question_list)
+                    localStorage.setItem("current_quiz", JSON.stringify(question_list))
                 }
                 
             })
@@ -208,4 +158,3 @@ function sleep(ms) {
 
 
 render_preview(question_list)
-creation_part_input()
