@@ -7,7 +7,6 @@ let doc_calls = {
 
 let question_list = JSON.parse(localStorage.getItem("current_quiz"))
 
-
 /**
  * Edit DOM to embed questions
  * @param {questions} list 
@@ -37,9 +36,14 @@ function render_preview(list) {
             </input>`
             if (i === list[index].answers.length - 1) {
                 temp_html_element += `
-                <button id="add_button_${index.toString()}" class="bg-[#2c2e31] max-md:bg-[#323438] w-10 shadow-2xl text-[#cfcec3] max-md:text-sm text-lg py-1 px-2 max-w-100 rounded-2xl text-center transition-all duration-500 hover:bg-amber-300 hover:text-[#323437] hover:shadow-amber-300/30">
-                    +
-                </button>`
+                <div id="button_wrapper" class="flex gap-5">
+                    <button id="add_button_${index.toString()}" class="bg-[#2c2e31] max-md:bg-[#323438] w-10 shadow-2xl text-[#cfcec3] max-md:text-sm text-lg py-1 px-2 max-w-100 rounded-2xl text-center transition-all duration-500 hover:bg-amber-300 hover:text-[#323437] hover:shadow-amber-300/30">
+                        +
+                    </button>
+                    <button id="remove_button_${index.toString()}" class="bg-[#2c2e31] max-md:bg-[#323438] w-10 shadow-2xl text-[#cfcec3] max-md:text-sm text-lg py-1 px-2 max-w-100 rounded-2xl text-center transition-all duration-500 hover:bg-amber-300 hover:text-[#323437] hover:shadow-amber-300/30">
+                        -
+                    </button>
+                </div>`
             }
         }
 
@@ -60,14 +64,14 @@ function creation_part_input() {
 
         for (let index = 0; index < Array.from(div_element.children).length; index++) {
             const input_element = Array.from(div_element.children)[index];
-
+            
             // Handle input, Filter id to locate where to edit,
             // Apply changes
-            if (input_element.id.includes("question_button" || "title")){
+            if (input_element.id.includes("question_button" && "title")){
                 input_element.addEventListener("keypress", (event) => {
                     if (event.key === "Enter") {
                         if (input_element.id.includes("title_" )) {
-                            question_list[input_element.id.replace(/\D/g, "")].title = input_element.value
+                            question_list[input_element.id.replace(/\D/g, "")].title = input_element.value                            
                         }
                         else if (input_element.id.includes("question_button_")) {
                             question_list[input_element.parentNode.id.replace(/\D/g, "")].answers[input_element.id.replace(/\D/g, "")].text = input_element.value
@@ -78,16 +82,26 @@ function creation_part_input() {
                     }
                 });
             }
-            if (input_element.id.includes("add_button_")){
-                input_element.addEventListener("click", (event) => {
+            if (input_element.id.includes("button_wrapper")){
+                let create_buttons = Array.from(input_element.children)
 
-                    question_list[input_element.id.replace(/\D/g, "")].answers.push({ text: "Reponse 1", value: 1, })
-                    render_preview(question_list)
-                    localStorage.setItem("current_quiz", JSON.stringify(question_list))
-                })
+                create_buttons.forEach(element => {
+                    element.addEventListener("click", (e) => {
+                        if(element.id.includes("add_button_")){
+                            //! arrive pas a trouver question_list[].anwsers
+                            question_list[create_buttons.id.replace(/\D/g, "")].answers.push({ text: "Reponse 1", value: 1, })
+                            render_preview(question_list)
+                            localStorage.setItem("current_quiz", JSON.stringify(question_list))
+                        }
+                        if (element.id.includes("remove_button_")){
+                            question_list[create_buttons.id.remplace(/\D/g, "")].answer.pop()
+                            render_preview(question_list)
+                            localStorage.setItem("current_quiz", JSON.stringify(question_list))
+                        }
+                    })
+                });
             }
             
-            //! Gros con ta mis les if a l'envers, tu set des event a tout le monde
         }
     });
 }
