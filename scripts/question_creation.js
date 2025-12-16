@@ -85,20 +85,26 @@ function creation_part_input() {
             if (input_element.id.includes("button_wrapper")){
                 let create_buttons = Array.from(input_element.children)
 
-                create_buttons.forEach(element => {
+                for (let index = 0; index < create_buttons.length; index++) {
+                    const element = create_buttons[index];
+                    
                     element.addEventListener("click", (e) => {
                         if(element.id.includes("add_button_")){
                             //! arrive pas a trouver question_list[].anwsers
-                            question_list[create_buttons.id.replace(/\D/g, "")].answers.push({ text: "Reponse 1", value: 1, })
+                            console.log(create_buttons[0].id)
+                            question_list[create_buttons[index].id.replace(/\D/g, "")].answers.push({ text: "Reponse 1", value: 1, })
                             render_preview(question_list)
                             localStorage.setItem("current_quiz", JSON.stringify(question_list))
                         }
                         if (element.id.includes("remove_button_")){
-                            question_list[create_buttons.id.remplace(/\D/g, "")].answer.pop()
+                            question_list[create_buttons[index].id.replace(/\D/g, "")].answers.pop()
                             render_preview(question_list)
                             localStorage.setItem("current_quiz", JSON.stringify(question_list))
                         }
                     })
+                }
+
+                create_buttons.forEach(element => {
                 });
             }
             
