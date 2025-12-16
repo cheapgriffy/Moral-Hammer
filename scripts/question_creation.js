@@ -103,9 +103,6 @@ function creation_part_input() {
                         }
                     })
                 }
-
-                create_buttons.forEach(element => {
-                });
             }
             
         }
