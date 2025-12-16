@@ -45,7 +45,7 @@ function render_preview(list) {
                     </button>
                 </div>`
             }
-        }
+        } 
 
         // Wrap Title + Answers + Buttons in a div.
         doc_calls.preset_view_div.innerHTML += `<div id="question_element${index}" class="flex flex-col items-center">${temp_html_element}</div>`
@@ -67,10 +67,10 @@ function creation_part_input() {
             
             // Handle input, Filter id to locate where to edit,
             // Apply changes
-            if (input_element.id.includes("question_button" && "title")){
+            if (input_element.id.includes("question_button") || input_element.id.includes("title_")){
                 input_element.addEventListener("keypress", (event) => {
                     if (event.key === "Enter") {
-                        if (input_element.id.includes("title_" )) {
+                        if (input_element.id.includes("title" )) {
                             question_list[input_element.id.replace(/\D/g, "")].title = input_element.value                            
                         }
                         else if (input_element.id.includes("question_button_")) {
