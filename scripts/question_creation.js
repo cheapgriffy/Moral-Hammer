@@ -61,30 +61,33 @@ function creation_part_input() {
         for (let index = 0; index < Array.from(div_element.children).length; index++) {
             const input_element = Array.from(div_element.children)[index];
 
-            // Handle input,
-            // Filter id to locate where to edit,
+            // Handle input, Filter id to locate where to edit,
             // Apply changes
-            input_element.addEventListener("keypress", (event) => {
-                if (event.key === "Enter") {
-                    if (input_element.id.includes("title_")) {
-                        question_list[input_element.id.replace(/\D/g, "")].title = input_element.value
-                    }
-                    else if (input_element.id.includes("question_button_")) {
-                        question_list[input_element.parentNode.id.replace(/\D/g, "")].answers[input_element.id.replace(/\D/g, "")].text = input_element.value
-                    }
+            if (input_element.id.includes("question_button" || "title")){
+                input_element.addEventListener("keypress", (event) => {
+                    if (event.key === "Enter") {
+                        if (input_element.id.includes("title_" )) {
+                            question_list[input_element.id.replace(/\D/g, "")].title = input_element.value
+                        }
+                        else if (input_element.id.includes("question_button_")) {
+                            question_list[input_element.parentNode.id.replace(/\D/g, "")].answers[input_element.id.replace(/\D/g, "")].text = input_element.value
+                        }
 
-                    render_preview(question_list)
-                    localStorage.setItem("current_quiz", JSON.stringify(question_list))
-                }
-            });
-            input_element.addEventListener("click", (event) => {
-                if (input_element.id.includes("add_button_")) {
+                        render_preview(question_list)
+                        localStorage.setItem("current_quiz", JSON.stringify(question_list))
+                    }
+                });
+            }
+            if (input_element.id.includes("add_button_")){
+                input_element.addEventListener("click", (event) => {
+
                     question_list[input_element.id.replace(/\D/g, "")].answers.push({ text: "Reponse 1", value: 1, })
-
                     render_preview(question_list)
                     localStorage.setItem("current_quiz", JSON.stringify(question_list))
-                }
-            })
+                })
+            }
+            
+            //! Gros con ta mis les if a l'envers, tu set des event a tout le monde
         }
     });
 }
